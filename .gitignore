@@ -396,3 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/EmailServiceClient/Properties/launchSettings.json
+/EmailServiceClient/wwwroot/lib/bootstrap/dist
+/EmailServiceClient/appsettings.Development.json
