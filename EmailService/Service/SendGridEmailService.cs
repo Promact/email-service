@@ -1,4 +1,5 @@
 ﻿using EmailService.Models;
+using Newtonsoft.Json;
 using SendGrid;
 using SendGrid.Helpers.Errors.Model;
 using SendGrid.Helpers.Mail;
@@ -40,8 +41,7 @@ namespace EmailService.Service
                 }
                 var response = await _sendGridClient.SendEmailAsync(message);
                 if (response.IsSuccessStatusCode) return new SendEmailResult { IsSuccess = true };
-                return new SendEmailResult { IsSuccess = false };
-
+                return new SendEmailResult { IsSuccess = false, ErrorMessage = await response.Body.ReadAsStringAsync() };
             }
             catch (SendGridInternalException ex)
             {
@@ -89,7 +89,7 @@ namespace EmailService.Service
                 }
                 var response = await _sendGridClient.SendEmailAsync(message);
                 if (response.IsSuccessStatusCode) return new SendEmailResult { IsSuccess = true };
-                return new SendEmailResult { IsSuccess = false };
+                return new SendEmailResult { IsSuccess = false, ErrorMessage =await response.Body.ReadAsStringAsync() };
             }
             catch (SendGridInternalException ex)
             {
